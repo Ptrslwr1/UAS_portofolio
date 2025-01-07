@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagram Data Penjualan</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        #colorSelector {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Laporan Data Penjualan</h1>
+    <canvas id="salesChart" width="800" height="200"></canvas>
+
+    <div id="colorSelector">
+        <label for="color2023">Warna untuk 2023: </label>
+        <input type="color" id="color2023" value="#3D3BF3">
+
+        <label for="color2024">Warna untuk 2024: </label>
+        <input type="color" id="color2024" value="#7E1891">
+
+    
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Bulan</th>
+                <th>2023</th>
+                <th>2024</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Januari</td><td>4589</td><td>2390</td></tr>
+            <tr><td>Februari</td><td>5867</td><td>4467</td></tr>
+            <tr><td>Maret</td><td>7789</td><td>8023</td></tr>
+            <tr><td>April</td><td>5986</td><td>8134</td></tr>
+            <tr><td>Mei</td><td>6835</td><td>9460</td></tr>
+            <tr><td>Juni</td><td>4876</td><td>6738</td></tr>
+            <tr><td>Juli</td><td>3290</td><td>6039</td></tr>
+            <tr><td>Agustus</td><td>4099</td><td>6453</td></tr>
+            <tr><td>September</td><td>6543</td><td>9678</td></tr>
+            <tr><td>Oktober</td><td>3654</td><td>9345</td></tr>
+            <tr><td>November</td><td>8256</td><td>9367</td></tr>
+            <tr><td>Desember</td><td>5803</td><td>8721</td></tr>
+        </tbody>
+    </table>
+
+    <script>
+        const data2023 = [4589, 5687, 7789, 5986, 6835, 4876, 3290, 4099, 6543, 3654, 8256, 5803];
+        const data2024 = [2390, 4467, 8023, 8134, 9460, 6738, 6039, 6453, 9678, 9345, 9367, 8721];
+        const labels = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '2023',
+                        data: data2023,
+                        backgroundColor: '#3D3BF3'
+                    },
+                    {
+                        label: '2024',
+                        data: data2024,
+                        backgroundColor: '#7E1891'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Laporan Data Penjualan 2023 vs 2024'
+                    }
+                }
+            }
+        });
+
+        function updateColors() {
+            const color2023 = document.getElementById('color2023').value;
+            const color2024 = document.getElementById('color2024').value;
+
+            salesChart.data.datasets[0].backgroundColor = color2023;
+            salesChart.data.datasets[1].backgroundColor = color2024;
+            salesChart.update();
+        }
+    </script>
+</body>
+</html>
